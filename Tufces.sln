@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tufces.Web", "Tufces.Web\Tufces.Web.csproj", "{C26EA8B3-5472-45F3-93A7-54FC3280FA04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tufces.Tests", "Tufces.Tests\Tufces.Tests.csproj", "{EABE706B-A4A8-4006-84AF-8E2643ADF030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tufces.Domain", "Tufces.Domain\Tufces.Domain.csproj", "{55E34CC1-37A1-4ABC-9B1A-BD5A198F324C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tufces.Dal", "Tufces.Dal\Tufces.Dal.csproj", "{AAC11A78-2C6E-460C-AF65-1FFBA4852C6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{55E34CC1-37A1-4ABC-9B1A-BD5A198F324C} = {55E34CC1-37A1-4ABC-9B1A-BD5A198F324C}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C26EA8B3-5472-45F3-93A7-54FC3280FA04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26EA8B3-5472-45F3-93A7-54FC3280FA04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26EA8B3-5472-45F3-93A7-54FC3280FA04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26EA8B3-5472-45F3-93A7-54FC3280FA04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EABE706B-A4A8-4006-84AF-8E2643ADF030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EABE706B-A4A8-4006-84AF-8E2643ADF030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EABE706B-A4A8-4006-84AF-8E2643ADF030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EABE706B-A4A8-4006-84AF-8E2643ADF030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E34CC1-37A1-4ABC-9B1A-BD5A198F324C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E34CC1-37A1-4ABC-9B1A-BD5A198F324C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E34CC1-37A1-4ABC-9B1A-BD5A198F324C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E34CC1-37A1-4ABC-9B1A-BD5A198F324C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAC11A78-2C6E-460C-AF65-1FFBA4852C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAC11A78-2C6E-460C-AF65-1FFBA4852C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAC11A78-2C6E-460C-AF65-1FFBA4852C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAC11A78-2C6E-460C-AF65-1FFBA4852C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

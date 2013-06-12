@@ -1,0 +1,128 @@
+﻿@*@model Tufces.Web.Models.HeaderModel*@
+
+@{
+    AjaxOptions searchOptions = new AjaxOptions { HttpMethod = "Post", UpdateTargetId="reportBody"};
+    using (Ajax.BeginForm("GetReportParams", "Home",null, searchOptions, new { @class = "form-inline" }))
+    {
+        <div class="row-fluid">
+            @Html.DropDownList("Sources", (IEnumerable<SelectListItem>)ViewBag.Sources, "Select Source", null)
+            @Html.DropDownList("SubSources", Enumerable.Empty<SelectListItem>(), "Select Sub Source", new { @disabled = "disabled" })
+            @Html.DropDownList("DataType", Enumerable.Empty<SelectListItem>(), "Select Data Type", new { @disabled = "disabled" })
+            @Html.DropDownList("Gear", Enumerable.Empty<SelectListItem>(), "Select Gear", new { @disabled = "disabled" })
+            @Html.Hidden("SourceId")
+            <input type="submit" class="btn btn-primary" value="Parameters" />
+        </div>
+    }
+}
+
+<div id="reportBody">
+
+</div>
+<script>
+    $('#Sources').change(function () {
+        var selectedSource = $(this).val();
+        var SubSources = $('#SubSources');
+        SubSources.attr('disabled', 'disabled');
+        var SourceId = $('#SourceId');
+        var DataType = $('#DataType');
+        DataType.attr('disabled', 'disabled');
+        SubSources.empty();
+        SourceId.val("");
+        SourceId.change();
+        SubSources.append($('<option/>', {
+            value: 0,
+            text: "Select Sub Source"
+        }));
+        if (selectedSource != null && selectedSource != 0) {
+            $.ajax({
+                url: '@Url.RouteUrl("Default",new {controller = "Home", action = "GetSubDataSources", id = "thesource"})'.replace("thesource", this.value),
+                type: 'GET',
+                success: function (xhr_data) {
+                    $(xhr_data).each(function () {
+                        SubSources.append($('<option/>', {
+                            value: this.Id,
+                            text: this.Description
+                        }));
+                    });
+                    SubSources.removeAttr('disabled');
+                },
+                error: function () {
+                    //No SubSource for the given source
+                    SourceId.val(selectedSource);
+                    SourceId.change();
+                }
+            });
+        }
+    });
+
+    $('#SubSources').change(function () {
+        var SourceId = $('#SourceId');
+        SourceId.val($(this).val());
+        SourceId.change();
+    });
+
+    $('#SourceId').change(function () {
+        var DataType = $('#DataType');
+        DataType.empty();
+        DataType.append($('<option/>', {
+            value: 0,
+            text: "Select Data Type"
+        }));
+        DataType.change();
+        if (this.value == "" || this.value == 0) {
+            DataType.attr('disabled', 'disabled');
+            return;
+        }
+        DataType.removeAttr('disabled');
+        $.ajax({
+            url: '@Url.RouteUrl("Default",new {controller = "Home", action = "GetDataTypesFromSource", id = "thesource"})'.replace("thesource", this.value),
+            type: 'GET',
+            success: function (xhr_data) {
+                $(xhr_data).each(function () {
+                    DataType.append($('<option/>', {
+                        value: this.Id,
+                        text: this.Description
+                    }));
+                });
+            },
+            error: function () {
+                //No SubSource for the given source
+                SourceId.val(selectedSource);
+            }
+        });
+    });
+
+    $('#DataType').change(function () {
+        var selectedDataType = $(this).val();
+        var Gear = $('#Gear');
+        var SourceId = $('#SourceId');
+        Gear.empty();
+        Gear.append($('<option/>', {
+            value: 0,
+            text: "Select Gear"
+        }));
+        if (selectedDataType != null && selectedDataType != 0) {
+            $.ajax({
+                url: '@Url.RouteUrl("Default",new {controller = "Home", action = "GetGears"})',
+                data: { sourceId: SourceId.val(), dataTypeId: selectedDataType },
+                type: 'GET',
+                success: function (xhr_data) {
+                    $(xhr_data).each(function () {
+                        Gear.append($('<option/>', {
+                            value: this.Code,
+                            text: this.Description
+                        }));
+                    });
+                    Gear.removeAttr('disabled');
+                },
+                error: function () {
+                    //No Gear for the given source
+                }
+            });
+        }
+        else {
+            Gear.attr('disabled', 'disabled');
+        }
+    });
+
+</script>
