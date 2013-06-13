@@ -17,16 +17,10 @@ namespace Tufces.Web.Models
         public Gear Gear { get; set; }
 
         public List<String> GetFlags() {
-            //List<String> Flags = new List<String>();
-            //Flags.Add("Belize");
-            //Flags.Add("China");
-            //Flags.Add("Cook Islands");
-            //Flags.Add("Fiji");
             ISessionFactory sessionFactory =  DynamicNHibernateHelper.CreateSessionFactory(String.Format("Server={0};Database={1};Trusted_Connection=True", Source.Server, Source.Database));
             UnitOfWork unit = new UnitOfWork(sessionFactory);
             Repository repo = new Repository(unit.Session);
             return repo.GetAll<Vessel>().Select(x=>x.Flag).Distinct().ToList();
-            //return (Flags);
         }
 
         public List<String> GetCatchNationalities()

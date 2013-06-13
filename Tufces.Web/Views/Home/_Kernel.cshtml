@@ -1,9 +1,17 @@
 ﻿@model Tufces.Web.Models.KernelViewModel
-
+@*<script>
+    $(document).ready(function () {
+        $('#FlagIncludePillbox').pillbox();
+    });
+</script>*@
+<div class="fuelux">
+<div id="FlagIncludePillbox" class="pillbox">
 <ul>
     @foreach(String flag in Model.Flags)
     {
         <li>@flag</li>
     }
 </ul>
+</div>
+    </div>
 
