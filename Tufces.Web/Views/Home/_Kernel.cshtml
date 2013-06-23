@@ -1,17 +1,50 @@
 ﻿@model Tufces.Web.Models.KernelViewModel
-@*<script>
-    $(document).ready(function () {
-        $('#FlagIncludePillbox').pillbox();
-    });
-</script>*@
-<div class="fuelux">
-<div id="FlagIncludePillbox" class="pillbox">
-<ul>
-    @foreach(String flag in Model.Flags)
-    {
-        <li>@flag</li>
-    }
-</ul>
-</div>
+<div class="row">
+    <div class="span3 well">
+        <div class="fuelux">
+            <div id="FlagIncludePillbox" class="pillbox">
+                <ul id="IncludedVesselFlagList">
+                    @foreach(String flag in Model.Flags)
+                    {
+                        <li class="VesselFlag">@flag</li>
+                    }
+                </ul>
+            </div>
+        </div>
     </div>
+    <div class="span3 well">
+        <div class="fuelux">
+            <div id="FlagExcludePillbox" class="pillbox">
+                <ul id="ExcludedVesselFlagList">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <input type="button" class="btn moveAll" value="Remove All" data-source="IncludedVesselFlagList" data-target="ExcludedVesselFlagList">
+    <input type="button" class="btn moveAll" value="Include All" data-source="ExcludedVesselFlagList" data-target="IncludedVesselFlagList">
+</div>
+<script>
+    $(function () {
+        $('#FlagIncludePillbox').on('click', '.VesselFlag', null, function (event) {
+            moveElement('#ExcludedVesselFlagList', $(this).text(), 'VesselFlag');
+        });
+        $('#FlagExcludePillbox').on('click', '.VesselFlag', null, function (event) {
+            moveElement('#IncludedVesselFlagList', $(this).text(), 'VesselFlag');
+        });
+        $('.moveAll').click(function () {
+            var source = $(this).data('source');
+            var target = $(this).data('target');
+            moveAllElements('#' + source, '#' + target);
+        });
+    });
+
+    function moveElement(listId, elementName, elementClass) {
+        $(listId).append('<li class="' + elementClass + '">' + elementName + '</li>');
+    }
+
+    function moveAllElements(sourceListId, targetListId) {
+        $(targetListId).append($(sourceListId).html());
+        $(sourceListId).html('');
+    }
+</script>
 
