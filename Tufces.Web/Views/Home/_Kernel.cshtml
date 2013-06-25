@@ -53,7 +53,7 @@
     $(function () {
         $('#FlagIncludePillbox').on('click', '.VesselFlag', null, function (event) {
             moveElement('#ExcludedVesselFlagList', $(this).html(), 'VesselFlag');
-            changeHeader('#VesselFlagsHeader', '#FlagIncludePillbox');
+            //changeHeader('#VesselFlagsHeader', '#FlagIncludePillbox');
         });
         $('#FlagExcludePillbox').on('click', '.VesselFlag', null, function (event) {
             moveElement('#IncludedVesselFlagList', $(this).html(), 'VesselFlag');
@@ -75,8 +75,12 @@
     }
 
     function changeHeader(headerId, includeListId) {
-        var items = $(includeListId).items();
-        console.log(items);
+        var items = $(includeListId).parent().pillbox('items');
+        var newHeader = "Select Flags - "
+        for (var i = 0; i < items.length; i++) {
+            newHeader = newHeader + items[i].text + ",";
+        }
+        $(headerId).text(newHeader);
 
     }
 </script>
