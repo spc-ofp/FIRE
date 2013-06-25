@@ -3,11 +3,11 @@
 <div class="accordion" id="accordion2">
   <div class="accordion-group">
     <div class="accordion-heading">
-      <a id="VesselFlagsHeader" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+      <a id="VesselFlagsHeader" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVesselFlags">
         Select Flags - All
       </a>
     </div>
-    <div id="collapseOne" class="accordion-body collapse in">
+    <div id="collapseVesselFlags" class="accordion-body collapse in">
       <div class="accordion-inner">
         <div class="row">
             <div class="span3 well">
@@ -68,6 +68,10 @@
             var target = $(this).data('target');
             moveAllElements('#' + source, '#' + target);
         });
+        $('#collapseVesselFlags').on('hidden', function () {
+            changeHeader('#VesselFlagsHeader', '#FlagIncludePillbox');
+        });
+
     });
 
     function moveElement(listId, elementHtml,elementClass) {
@@ -80,11 +84,12 @@
     }
 
     function changeHeader(headerId, includeListId) {
-        var items = $(includeListId).parent().pillbox('items');
+        var items = $(includeListId).pillbox('items');
         var newHeader = "Select Flags - "
         for (var i = 0; i < items.length; i++) {
             newHeader = newHeader + items[i].text + ",";
         }
+        newHeader = newHeader.substring(0, newHeader.length - 1);
         $(headerId).text(newHeader);
 
     }
