@@ -41,6 +41,11 @@
                 <button type="submit" class="btn moveAll" data-source="ExcludedVesselFlagList" data-target="IncludedVesselFlagList">
                     <i class="icon-signin"></i>&nbsp;Include All
                 </button>
+                <br />
+                <br />
+                Report by:
+                <br />
+                @Html.DropDownListFor(model => model.FlagsGrouping, Model.FlagsGroupingList, new { @class="span2"})
             </div>
         </div>
       </div>
