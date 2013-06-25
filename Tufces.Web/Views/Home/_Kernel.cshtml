@@ -1,35 +1,62 @@
 ﻿@model Tufces.Web.Models.KernelViewModel
-<div class="row">
-    <div class="span3 well">
-        <div class="fuelux">
-            <div id="FlagIncludePillbox" class="pillbox">
-                <ul id="IncludedVesselFlagList">
-                    @foreach(String flag in Model.Flags)
-                    {
-                        <li class="VesselFlag">@flag</li>
-                    }
-                </ul>
+
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a id="VesselFlagsHeader" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        Select Flags - All
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <div class="row">
+            <div class="span3 well">
+                <h4>Include</h4>
+                <div class="fuelux">
+                    <div id="FlagIncludePillbox" class="pillbox">
+                        <ul id="IncludedVesselFlagList">
+                            @foreach(String flag in Model.Flags)
+                            {
+                                <li class="VesselFlag"><img src="@Url.Content("~/Content/images/flags/"+@flag+".png")" /> @flag</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="span3 well">
+                <h4>Exclude</h4>
+                <div class="fuelux">
+                    <div id="FlagExcludePillbox" class="pillbox">
+                        <ul id="ExcludedVesselFlagList">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="span2 well">
+                <button type="submit" class="btn moveAll" data-source="IncludedVesselFlagList" data-target="ExcludedVesselFlagList">
+                    <i class="icon-signout"></i>&nbsp;Exclude All
+                </button>
+                <br />
+                <br />
+                <button type="submit" class="btn moveAll" data-source="ExcludedVesselFlagList" data-target="IncludedVesselFlagList">
+                    <i class="icon-signin"></i>&nbsp;Include All
+                </button>
             </div>
         </div>
+      </div>
     </div>
-    <div class="span3 well">
-        <div class="fuelux">
-            <div id="FlagExcludePillbox" class="pillbox">
-                <ul id="ExcludedVesselFlagList">
-                </ul>
-            </div>
-        </div>
-    </div>
-    <input type="button" class="btn moveAll" value="Remove All" data-source="IncludedVesselFlagList" data-target="ExcludedVesselFlagList">
-    <input type="button" class="btn moveAll" value="Include All" data-source="ExcludedVesselFlagList" data-target="IncludedVesselFlagList">
+  </div>
 </div>
+
+
 <script>
     $(function () {
         $('#FlagIncludePillbox').on('click', '.VesselFlag', null, function (event) {
-            moveElement('#ExcludedVesselFlagList', $(this).text(), 'VesselFlag');
+            moveElement('#ExcludedVesselFlagList', $(this).html(), 'VesselFlag');
+            changeHeader('#VesselFlagsHeader', '#FlagIncludePillbox');
         });
         $('#FlagExcludePillbox').on('click', '.VesselFlag', null, function (event) {
-            moveElement('#IncludedVesselFlagList', $(this).text(), 'VesselFlag');
+            moveElement('#IncludedVesselFlagList', $(this).html(), 'VesselFlag');
         });
         $('.moveAll').click(function () {
             var source = $(this).data('source');
@@ -38,13 +65,19 @@
         });
     });
 
-    function moveElement(listId, elementName, elementClass) {
-        $(listId).append('<li class="' + elementClass + '">' + elementName + '</li>');
+    function moveElement(listId, elementHtml,elementClass) {
+        $(listId).append('<li class="' + elementClass + '">' + elementHtml + '</li>');
     }
 
     function moveAllElements(sourceListId, targetListId) {
         $(targetListId).append($(sourceListId).html());
         $(sourceListId).html('');
+    }
+
+    function changeHeader(headerId, includeListId) {
+        var items = $(includeListId).items();
+        console.log(items);
+
     }
 </script>
 
