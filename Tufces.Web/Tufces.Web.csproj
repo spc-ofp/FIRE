@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Models\HeaderModel.cs" />
     <Compile Include="Models\KernelViewModel.cs" />
+    <Compile Include="Models\PillboxViewModel.cs" />
     <Compile Include="Models\TufmanKernel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -537,6 +538,7 @@
     <Content Include="packages.config" />
     <None Include="readme.txt" />
     <Content Include="Views\Home\_Kernel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PillboxViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

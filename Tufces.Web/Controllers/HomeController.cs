@@ -37,8 +37,9 @@ namespace Tufces.Web.Controllers
                 Gear gear = _repo.Get<Gear>(Gear);
                 TufmanKernel tufmanKernel = new TufmanKernel() { DataType = dataType, Gear = gear, Source = source };
                 KernelViewModel kernelViewModel = new KernelViewModel();
-                kernelViewModel.Flags = tufmanKernel.GetFlags();
-                kernelViewModel.Species = tufmanKernel.GetSpecies();
+                kernelViewModel.Pillboxes.Add(tufmanKernel.GetFlags());
+                kernelViewModel.Pillboxes.Add(tufmanKernel.GetSpecies());
+                
                 return PartialView("_Kernel", kernelViewModel);
             }
             return PartialView();

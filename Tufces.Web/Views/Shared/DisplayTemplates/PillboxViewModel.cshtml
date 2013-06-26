@@ -1,0 +1,75 @@
+﻿@model Tufces.Web.Models.PillboxViewModel
+
+
+<div class="accordion-group">
+    <div class="accordion-heading">
+      <a id='header@(Model.ModuleName)' class="accordion-toggle" data-toggle="collapse" data-parent="#Mainaccordion" href='#collapse@(Model.ModuleName)'>
+        @MvcHtmlString.Create("Select "+Model.ModuleName + " - All")    
+      </a>
+    </div>
+    <div id="collapse@(Model.ModuleName)" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <div class="row">
+            <div class="span3 well">
+                <h4>Include</h4>
+                <div class="fuelux">
+                    <div id="includePillBox@(Model.ModuleName)" class="pillbox">
+                        <ul id="includeList@(Model.ModuleName)">
+                            @foreach (KeyValuePair<String, String> value in Model.PillboxValues)
+                            {
+                                if (Model.HasImages==true) {
+                                    <li class="@Model.ModuleName"><img src="@Url.Content(Model.ImagePath+@value.Key+".png")" /> @value.Value</li>
+                                }
+                                else {
+                                    <li class="@Model.ModuleName"> @value.Value</li>
+                                }                                    
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="span3 well">
+                <h4>Exclude</h4>
+                <div class="fuelux">
+                    <div id="excludePillBox@(Model.ModuleName)" class="pillbox">
+                        <ul id="excludeList@(Model.ModuleName)">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="span2 well">
+                <button type="submit" class="btn moveAll" data-source="includeList@(Model.ModuleName)" data-target="excludeList@(Model.ModuleName)">
+                    <i class="icon-signout"></i>&nbsp;Exclude All
+                </button>
+                <br />
+                <br />
+                <button type="submit" class="btn moveAll" data-source="excludeList@(Model.ModuleName)" data-target="includeList@(Model.ModuleName)">
+                    <i class="icon-signin"></i>&nbsp;Include All
+                </button>
+                <br />
+                <br />
+                Report by:
+                <br />
+                @if(Model.GroupingList!=null && Model.GroupingList.Count>0)
+                {
+                    @Html.DropDownList("grp"+Model.ModuleName, Model.GroupingList, new { @class = "span2" });
+                }
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    $(function () {
+        $('#includePillBox@(Model.ModuleName)').on('click', '.@Model.ModuleName', null, function (event) {
+            moveElement('#excludeList@(Model.ModuleName)', $(this).html(), '@Model.ModuleName');
+        });
+        $('#excludePillBox@(Model.ModuleName)').on('click', '.@Model.ModuleName', null, function (event) {
+            moveElement('#includeList@(Model.ModuleName)', $(this).html(), '@Model.ModuleName');
+        });
+        $('#collapse@(Model.ModuleName)').on('hidden', function () {
+            changeHeader('#header@(Model.ModuleName)', '#includePillBox@(Model.ModuleName)', '@Model.ModuleName');
+        });
+    });
+</script>

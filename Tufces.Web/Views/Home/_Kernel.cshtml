@@ -1,134 +1,14 @@
 ﻿@model Tufces.Web.Models.KernelViewModel
 
-<div class="accordion" id="accordion2">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a id="VesselFlagsHeader" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseVesselFlags">
-        Select Flags - All
-      </a>
-    </div>
-    <div id="collapseVesselFlags" class="accordion-body collapse in">
-      <div class="accordion-inner">
-        <div class="row">
-            <div class="span3 well">
-                <h4>Include</h4>
-                <div class="fuelux">
-                    <div id="FlagIncludePillbox" class="pillbox">
-                        <ul id="IncludedVesselFlagList">
-                            @foreach(String flag in Model.Flags)
-                            {
-                                <li class="VesselFlag"><img src="@Url.Content("~/Content/images/flags/"+@flag+".png")" /> @flag</li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="span3 well">
-                <h4>Exclude</h4>
-                <div class="fuelux">
-                    <div id="FlagExcludePillbox" class="pillbox">
-                        <ul id="ExcludedVesselFlagList">
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="span2 well">
-                <button type="submit" class="btn moveAll" data-source="IncludedVesselFlagList" data-target="ExcludedVesselFlagList">
-                    <i class="icon-signout"></i>&nbsp;Exclude All
-                </button>
-                <br />
-                <br />
-                <button type="submit" class="btn moveAll" data-source="ExcludedVesselFlagList" data-target="IncludedVesselFlagList">
-                    <i class="icon-signin"></i>&nbsp;Include All
-                </button>
-                <br />
-                <br />
-                Report by:
-                <br />
-                @Html.DropDownListFor(model => model.FlagsGrouping, Model.FlagsGroupingList, new { @class="span2"})
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    @if (Model.Species != null && Model.Species.Count > 0)
+<div class="accordion" id="Mainaccordion">
+    @foreach(var item in Model.Pillboxes)
     {
-     <div class="accordion-group">
-    <div class="accordion-heading">
-      <a id="SpeciesHeader" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSpecies">
-        Select Species - All
-      </a>
-    </div>
-    <div id="collapseSpecies" class="accordion-body collapse in">
-      <div class="accordion-inner">
-        <div class="row">
-            <div class="span3 well">
-                <h4>Include</h4>
-                <div class="fuelux">
-                    <div id="SpeciesIncludePillbox" class="pillbox">
-                        <ul id="IncludedSpeciesList">
-                            @foreach (String species in Model.Species)
-                            {
-                                <li class="Species"> @species</li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="span3 well">
-                <h4>Exclude</h4>
-                <div class="fuelux">
-                    <div id="SpeciesExcludePillbox" class="pillbox">
-                        <ul id="ExcludedSpeciesList">
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="span2 well">
-                <button type="submit" class="btn moveAll" data-source="IncludedSpeciesList" data-target="ExcludedSpeciesList">
-                    <i class="icon-signout"></i>&nbsp;Exclude All
-                </button>
-                <br />
-                <br />
-                <button type="submit" class="btn moveAll" data-source="ExcludedSpeciesList" data-target="IncludedSpeciesList">
-                    <i class="icon-signin"></i>&nbsp;Include All
-                </button>
-                <br />
-                <br />
-                Report by:
-                <br />
-                @Html.DropDownListFor(model => model.SpeciesGrouping, Model.SpeciesGroupingList, new { @class="span2"})
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        @Html.DisplayFor(x=>item)
     }
 </div>
 
-
 <script>
     $(function () {
-        $('#FlagIncludePillbox').on('click', '.VesselFlag', null, function (event) {
-            moveElement('#ExcludedVesselFlagList', $(this).html(), 'VesselFlag');
-        });
-        $('#FlagExcludePillbox').on('click', '.VesselFlag', null, function (event) {
-            moveElement('#IncludedVesselFlagList', $(this).html(), 'VesselFlag');
-        });
-        $('#SpeciesIncludePillbox').on('click', '.Species', null, function (event) {
-            moveElement('#ExcludedSpeciesList', $(this).html(), 'Species');
-        });
-        $('#SpeciesExcludePillbox').on('click', '.Species', null, function (event) {
-            moveElement('#IncludedSpeciesList', $(this).html(), 'Species');
-        });
-
-        $('#collapseVesselFlags').on('hidden', function () {
-            changeHeader('#VesselFlagsHeader', '#FlagIncludePillbox','Flag');
-        });
-        $('#collapseSpecies').on('hidden', function () {
-            changeHeader('#SpeciesHeader', '#SpeciesIncludePillbox','Species');
-        });
 
         $('.moveAll').click(function () {
             var source = $(this).data('source');
