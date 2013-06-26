@@ -38,6 +38,7 @@ namespace Tufces.Web.Controllers
                 TufmanKernel tufmanKernel = new TufmanKernel() { DataType = dataType, Gear = gear, Source = source };
                 KernelViewModel kernelViewModel = new KernelViewModel();
                 kernelViewModel.Flags = tufmanKernel.GetFlags();
+                kernelViewModel.Species = tufmanKernel.GetSpecies();
                 return PartialView("_Kernel", kernelViewModel);
             }
             return PartialView();
