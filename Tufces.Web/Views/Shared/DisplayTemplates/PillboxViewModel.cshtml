@@ -48,10 +48,9 @@
                 </button>
                 <br />
                 <br />
-                Report by:
-                <br />
                 @if(Model.GroupingList!=null && Model.GroupingList.Count>0)
                 {
+                    @Html.Label("Report by:");
                     @Html.DropDownList("grp"+Model.ModuleName, Model.GroupingList, new { @class = "span2" });
                 }
             </div>

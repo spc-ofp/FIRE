@@ -7,8 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tufces.Dal.Maps;
-using Tufces.Dal.Maps.Tufman.Ves;
+using TUFMAN.DAL.Maps.Ves;
 
 namespace Tufces.Dal.Configuration
 {
@@ -17,8 +16,8 @@ namespace Tufces.Dal.Configuration
         public static ISessionFactory CreateSessionFactory(string connectionString)
         {
             NHibernate.Cfg.Configuration config = Fluently.Configure().
-                Database(MsSqlConfiguration.MsSql2008.ConnectionString(connectionString)).
-                Mappings(m => m.FluentMappings.AddFromAssemblyOf<VesselMap>()).
+                Database(MsSqlConfiguration.MsSql2008.ShowSql().ConnectionString(connectionString)).
+                Mappings(m => m.FluentMappings.AddFromAssemblyOf<VesselsMap>()).
                 CurrentSessionContext<ThreadStaticSessionContext>().
                 BuildConfiguration();
             return config.BuildSessionFactory();

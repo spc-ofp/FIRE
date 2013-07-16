@@ -45,11 +45,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataType.cs" />
+    <Compile Include="Enum\AreaReportByType.cs" />
+    <Compile Include="Enum\AreaSelectionType.cs" />
+    <Compile Include="Enum\CatchReportingType.cs" />
+    <Compile Include="Enum\CPUEReportingType.cs" />
+    <Compile Include="Enum\EffortReportingType.cs" />
+    <Compile Include="Enum\FlagReportByType.cs" />
+    <Compile Include="Enum\SpeciesReportByType.cs" />
+    <Compile Include="Enum\TimePeriodDetailType.cs" />
+    <Compile Include="Enum\TimePeriodReportByType.cs" />
+    <Compile Include="Enum\TimePeriodSelectionType.cs" />
     <Compile Include="Gear.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source.cs" />
     <Compile Include="SourceDataType.cs" />
-    <Compile Include="Tufman\Ves\Vessel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

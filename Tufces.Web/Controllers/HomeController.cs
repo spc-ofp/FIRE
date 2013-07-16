@@ -39,6 +39,11 @@ namespace Tufces.Web.Controllers
                 KernelViewModel kernelViewModel = new KernelViewModel();
                 kernelViewModel.Pillboxes.Add(tufmanKernel.GetFlags());
                 kernelViewModel.Pillboxes.Add(tufmanKernel.GetSpecies());
+                kernelViewModel.Pillboxes.Add(tufmanKernel.GetVessels());
+
+                kernelViewModel.Pillboxes.Add(tufmanKernel.GetCatchOptions());
+                kernelViewModel.Pillboxes.Add(tufmanKernel.GetEffortOptions());
+                kernelViewModel.Pillboxes.Add(tufmanKernel.GetCPUEOptions());
                 
                 return PartialView("_Kernel", kernelViewModel);
             }
@@ -54,6 +59,7 @@ namespace Tufces.Web.Controllers
         public ActionResult GetSubDataSources(int id)
         {
             Source parentSource = _repo.Get<Source>(id);
+
             if (parentSource.Type!=2)
                 return Json(null, JsonRequestBehavior.AllowGet);
             var childrenSources = _repo.Find<Source>(x => x.GroupId == parentSource.GroupId && x.Type == 3);
